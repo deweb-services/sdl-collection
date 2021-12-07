@@ -1,0 +1,7 @@
+FROM python:3.7
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+RUN apt-get -y install git
+COPY . .
+EXPOSE 5000
+ENTRYPOINT ["./entrypoint.sh"]

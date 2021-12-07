@@ -1,0 +1,38 @@
+version: "2.0"
+
+services:
+  web:
+    image: sp41mer/aiohttp:latest
+    env:
+      - REPO="https://github.com/sp41mer/django-test.git"
+    expose:
+      - port: 8000
+        as: 80
+        to:
+          - global: true
+
+profiles:
+  compute:
+    web:
+      resources:
+        cpu:
+          units: 1
+        memory:
+          size: 1Gi
+        storage:
+          size: 1Gi
+  placement:
+    westcoast:
+      signedBy:
+        anyOf:
+          - "akash1365yvmc4s7awdyj3n2sav7xfx76adc6dnmlx63"
+      pricing:
+        web:
+          denom: uakt
+          amount: 3000
+
+deployment:
+  web:
+    westcoast:
+      profile: web
+      count: 1
